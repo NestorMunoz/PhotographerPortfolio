@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<style type="text/css">
+	
+	* {
+		background-color: #cccccc;
+		text-align: center;
+		font-weight: 700;
+		font-size: 40px;
+
+		margin: 0;
+		padding: 0;
+	}
+
+	#calc {
+		opacity: 0.85;
+		background-color: #2980b9;
+		border-radius: 8px;
+
+		width: 337px;
+		height: 464px;	
+		margin: 7% auto;
+		padding: 3px;
+	}
+
+	.teclas span {
+		background-color: orange;
+		border-radius: 4px;
+		border: solid 1px black;
+		line-height: 75px;
+
+		float: left;
+		width: 80px;
+		height: 80px;
+		margin: 1px;
+	}
+
+	#pantalla{
+		background-color: #ecf0f1;
+		border-radius: 4px;
+		border: solid black 1px;
+		line-height: 80px;
+
+		width: 332px;
+		height: 80px;
+		float: left;
+		margin: 1px;
+	}
+
+	#limpiar, #borrar{
+		font-size: 22px;
+		background: red;
+		border-radius: 4px;
+		border: solid black 1px;
+		opacity:0.9;
+		color: white;
+		line-height: 40px;
+
+		float: left;
+		width: 164px;
+		height: 38.5px;
+		margin: 1px;
+	}
+
+	span:nth-child(4n){
+		background: #e67e22;
+	}
+	span:nth-child(13){
+		background: #f1c40f;
+	}
+	span:active{
+		background: #f39c12;
+		opacity: 0.8;
+	}
+	#borrar:active,#limpiar:active{
+		background: #e74c3c;
+	}
+</style>
+<body>
+	
+	<div id="calc">
+		<div id="pantalla"></div>
+		<div class="teclas">
+			<span>7</span>
+			<span>8</span>
+			<span>9</span>
+			<span>*</span>
+			<span>4</span>
+			<span>5</span>
+			<span>6</span>
+			<span>/</span>
+			<span>1</span>
+			<span>2</span>
+			<span>3</span>
+			<span>+</span>
+			<span>=</span>
+			<span>0</span>
+			<span>.</span>
+			<span>-</span>
+			<div id="limpiar">AC</div>
+			<div id="borrar">DEL</div>
+		</div>
+	</div>
+
+</div>
+
+
+</body>
+	
+	<script type="text/javascript">
+		var valores = document.getElementsByTagName("span");
+		var pantalla  = document.getElementById("pantalla");
+		var limpiar = document.getElementById("limpiar");
+		var borrar = document.getElementById("borrar");
+
+		for (var i = 0; i < valores.length; i++) {
+	    	if (valores[i].innerHTML === '=') {
+	      		valores[i].addEventListener("click", operacion(i));
+	    	} else {
+	      		valores[i].addEventListener("click", agregarValor(i));
+	    	}
+	  	}
+
+		limpiar.onclick = function () {
+		  pantalla.innerHTML = '';
+		};
+
+		borrar.onclick = function(){
+			pantalla.innerHTML = pantalla.innerHTML.slice(0 , -1);
+		}
+
+		function agregarValor(i){
+			return function(){
+				pantalla.innerHTML += valores[i].innerHTML;
+			};
+		}
+
+		function operacion(i){
+			return function(){
+				pantalla.innerHTML = eval(pantalla.innerHTML);
+			};
+		}
+
+	</script>
+
+</html>
